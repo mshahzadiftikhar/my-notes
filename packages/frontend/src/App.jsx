@@ -2,12 +2,34 @@ import { useState, useMemo } from "react";
 import "./App.css";
 import NoteForm from "./components/NoteForm";
 import NotesList from "./components/NoteList";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest"); // newest, oldest, title
+  
+  // Authentication state
+  const [user, setUser] = useState(null);
+  const [authMode, setAuthMode] = useState('signin'); // 'signin' or 'signup'
+
+  // Authentication functions
+  const handleSignIn = (email) => {
+    setUser({ email });
+  };
+
+  const handleSignUp = (email) => {
+    setUser({ email });
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+    setNotes([]);
+    setEditingNote(null);
+    setSearchTerm("");
+  };
 
   function saveNote(note) {
     setNotes((prev) => {
@@ -47,11 +69,40 @@ function App() {
     }
   }, [notes, searchTerm, sortBy]);
 
+  // Show authentication forms if user is not logged in
+  if (!user) {
+    if (authMode === 'signin') {
+      return (
+        <SignIn 
+          onSignIn={handleSignIn}
+          switchToSignUp={() => setAuthMode('signup')}
+        />
+      );
+    } else {
+      return (
+        <SignUp 
+          onSignUp={handleSignUp}
+          switchToSignIn={() => setAuthMode('signin')}
+        />
+      );
+    }
+  }
+
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">My Notes</h1>
-        <p className="app-subtitle">Organize your thoughts and ideas</p>
+        <div className="header-content">
+          <div>
+            <h1 className="app-title">My Notes</h1>
+            <p className="app-subtitle">Organize your thoughts and ideas</p>
+          </div>
+          <div className="user-info">
+            <span className="user-email">Welcome, {user.email}</span>
+            <button onClick={handleSignOut} className="sign-out-button">
+              Sign Out
+            </button>
+          </div>
+        </div>
       </header>
 
       <main>
