@@ -193,7 +193,6 @@ select:focus-visible {
     font-size: 1.25rem;
   }
 }
-}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
