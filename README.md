@@ -38,11 +38,34 @@ npm run dev
 npm run dev:frontend
 ```
 
-#### Backend Development (Coming Soon)
+#### Backend Development
 ```bash
-# Start backend development server
+# Complete backend setup (database + migrations + server)
 npm run dev:backend
+
+# Or run components individually:
+# Start database only
+npm run backend:db
+
+# Run migrations
+npm run backend:migrate
+
+# Start development server only
+npm run backend:server
+
+# View database logs
+npm run backend:logs
+
+# Stop database
+npm run backend:stop
+
+# Reset database (removes all data)
+npm run backend:reset
 ```
+
+**Backend Prerequisites:**
+- Docker and Docker Compose (for MySQL database)
+- Create a `.env` file in `packages/backend/` (copy from `.env.example` and update values)
 
 #### Run Both Frontend and Backend
 ```bash
@@ -58,7 +81,13 @@ npm run lint:all
 - `npm run dev` - Start frontend development server
 - `npm run build` - Build frontend for production
 - `npm run dev:frontend` - Start frontend development server
-- `npm run dev:backend` - Start backend development server
+- `npm run dev:backend` - Start complete backend (database + migrations + server)
+- `npm run backend:db` - Start database only
+- `npm run backend:migrate` - Run database migrations
+- `npm run backend:server` - Start backend development server only
+- `npm run backend:logs` - View database logs
+- `npm run backend:stop` - Stop database
+- `npm run backend:reset` - Reset database (removes all data)
 - `npm run build:frontend` - Build frontend for production
 - `npm run build:backend` - Build backend for production
 - `npm run build:all` - Build all packages
@@ -74,4 +103,33 @@ React application built with Vite, featuring:
 - Hot Module Replacement (HMR)
 
 ### Backend (`packages/backend`)
-Backend API package (implementation coming soon)
+Express.js backend API with:
+- Express.js server
+- MySQL database with Sequelize ORM
+- Docker Compose for local development
+- JWT authentication
+- Redis for caching
+- Database migrations
+- RESTful API endpoints for notes management
+
+See `packages/backend/README.md` for detailed setup instructions.
+
+## Contributing
+
+1. Make changes in the appropriate package directory
+2. Run tests and linting
+3. Submit a pull request
+
+## Technology Stack
+
+### Frontend
+- React 19
+- Vite
+- ESLint
+
+### Backend
+- Express.js
+- MySQL with Sequelize ORM
+- Docker Compose
+- JWT authentication
+- Redis caching
